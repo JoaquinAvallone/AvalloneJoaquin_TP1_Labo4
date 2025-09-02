@@ -10,18 +10,15 @@ import { Router, RouterModule } from '@angular/router';
   styleUrl: './log-in.scss'
 })
 export class LogIn {
- email: string = '';
+  email: string = '';
   password: string = '';
   errorMessage: string = '';
 
   constructor(private router: Router) {}
 
   onLogin() {
-    // 🔑 Ejemplo simple: usuario hardcodeado
     if (this.email === 'admin@test.com' && this.password === '1234') {
-      this.router.navigate(['/home']); // Redirigir a /home
-    } else {
-      this.errorMessage = 'Correo o contraseña incorrectos';
+      this.router.navigate(['/home']);
     }
   }
 }
