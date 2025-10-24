@@ -19,7 +19,7 @@ export const routes: Routes = [
     { path: 'juegos', loadChildren: () => import('./modulos/juegos/juegos-module').then(m => m.JuegosModule), canActivate: [authGuard] },
     { path: 'encuestas', component: Encuestas, canActivate: [authGuard] },
     { path: 'ranking', component: Ranking, canActivate: [authGuard] },
-    { path: 'resultado-encuestas', component: ResultadoEncuestas, canActivate: [adminGuard] },
+    { path: 'resultado-encuestas', loadComponent: () => import('./components/resultado-encuestas/resultado-encuestas/resultado-encuestas').then(m => m.ResultadoEncuestas), canActivate: [adminGuard] },
     { path: '**', redirectTo: '/home', pathMatch: "full" },
 
 ];

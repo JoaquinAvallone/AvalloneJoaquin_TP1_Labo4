@@ -10,7 +10,7 @@
             </div>
 
             <div class="progreso-container text-center mb-4">
-                <span class="badge bg-primary fs-6 me-2" *ngIf="!juegoTerminado">Pregunta {{ preguntasRespondidas + 1 }}/5</span>
+                <span class="badge bg-primary fs-6 me-2" *ngIf="!juegoTerminado">Pregunta {{ preguntasRespondidas + 1 }}/10</span>
                 <span class="badge bg-success fs-6">Puntuación: {{ puntuacion }}</span>
             </div>
 
@@ -44,9 +44,9 @@
 
             <div class="gameOver text-center mt-4">
                 <div *ngIf="juegoTerminado" class="message mb-3">
-                    <h4 [class.text-success]="puntuacion >= 4" 
-                        [class.text-success]="puntuacion === 3" 
-                        [class.text-danger]="puntuacion <= 2">
+                    <h4 [class.text-success]="puntuacion >= 8" 
+                        [class.text-success]="puntuacion === 5" 
+                        [class.text-danger]="puntuacion <= 3">
                         {{ obtenerMensajeFinal() }}
                     </h4>
                 </div>

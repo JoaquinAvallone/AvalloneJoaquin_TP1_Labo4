@@ -77,14 +77,14 @@ export class PreguntadosComponent implements OnInit {
   generarNuevasPreguntas() {
     const paisesMezclados = [...this.todosLosPaises]
       .sort(() => Math.random() - 0.5)
-      .slice(0, 5);
+      .slice(0, 10);
     
     this.paisesPregunta = paisesMezclados;
     this.siguientePregunta();
   }
 
   siguientePregunta() {
-    if (this.preguntasRespondidas >= 5) {
+    if (this.preguntasRespondidas >= 10) {
       this.finalizarJuego();
       return;
     }
@@ -149,12 +149,12 @@ export class PreguntadosComponent implements OnInit {
   }
 
   obtenerMensajeFinal(): string {
-    if (this.puntuacion >= 4) {
-      return `¡EXCELENTE! Obtuviste ${this.puntuacion} de 5 puntos`;
-    } else if (this.puntuacion === 3) {
-      return `¡BUEN TRABAJO! Obtuviste ${this.puntuacion} de 5 puntos`;
+    if (this.puntuacion >= 9) {
+      return `¡EXCELENTE! Obtuviste ${this.puntuacion} de 10 puntos`;
+    } else if (this.puntuacion === 5) {
+      return `¡BUEN TRABAJO! Obtuviste ${this.puntuacion} de 10 puntos`;
     } else {
-      return `JUEGO TERMINADO. Obtuviste ${this.puntuacion} de 5 puntos`;
+      return `JUEGO TERMINADO. Obtuviste ${this.puntuacion} de 10 puntos`;
     }
   }
 }
