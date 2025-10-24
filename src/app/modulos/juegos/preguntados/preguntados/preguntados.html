@@ -1,0 +1,62 @@
+<div class="container preguntados-container full-height">
+    <img src="preguntados/fondo.png" class="fondo-ahorcado">
+    <section class="game">
+        <div class="content">
+
+            <div class="close-button text-end mb-3">
+                <button class="btn btn-outline-danger btn-sm border-2 content-2" (click)="volverAlHome()" [disabled]="cargando">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+
+            <!-- Contadores de progreso -->
+            <div class="progreso-container text-center mb-4">
+                <span class="badge bg-primary fs-6 me-2">Pregunta {{ preguntasRespondidas + 1 }}/5</span>
+                <span class="badge bg-success fs-6">Puntuación: {{ puntuacion }}</span>
+            </div>
+
+            <div class="bandera-container text-center mb-4">
+                <div class="bandera-image">
+                    <img [src]="obtenerBandera()" 
+                         [alt]="'Bandera de ' + (preguntaActual?.translations?.spa?.common || '')" 
+                         class="img-fluid"
+                         *ngIf="preguntaActual">
+                </div>
+            </div>
+
+            <div class="pregunta-texto text-center mb-4">
+                <h4>¿A qué país pertenece esta bandera?</h4>
+            </div>
+            
+            <div class="opciones-container">
+                <div class="opciones-row">
+                    <button *ngFor="let opcion of opciones" 
+                            class="btn opcion-btn" 
+                            (click)="seleccionarRespuesta(opcion)"
+                            [disabled]="mostrarResultado || juegoTerminado"
+                            [class.btn-secondary]="mostrarResultado && respuestaSeleccionada === opcion"
+                            [class.btn-success]="mostrarResultado && opcion === preguntaActual?.translations?.spa?.common"
+                            [class.btn-danger]="mostrarResultado && respuestaSeleccionada === opcion && opcion !== preguntaActual?.translations?.spa?.common"
+                            [class.btn-primary]="!mostrarResultado">
+                        {{ opcion }}
+                    </button>
+                </div>
+            </div>
+
+            <div class="gameOver text-center mt-4">
+                <div *ngIf="juegoTerminado" class="message mb-3">
+                    <h4 [class.text-success]="puntuacion >= 4" 
+                        [class.text-success]="puntuacion === 3" 
+                        [class.text-danger]="puntuacion <= 2">
+                        {{ obtenerMensajeFinal() }}
+                    </h4>
+                </div>
+                <div *ngIf="juegoTerminado" class="reset-button">
+                    <button class="btn btn-success" (click)="reiniciarJuego()">
+                        <i class="bi bi-arrow-repeat"></i> Jugar de nuevo
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

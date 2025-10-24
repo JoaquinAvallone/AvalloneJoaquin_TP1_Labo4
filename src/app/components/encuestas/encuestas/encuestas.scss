@@ -1,0 +1,295 @@
+/* encuestas.scss - USANDO EL MISMO PATRÓN */
+:host {
+  display: block;
+  height: 100%;
+}
+
+.container-encuestas {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.encuestas-content {
+  width: 100%;
+  max-width: 800px;
+  max-height: 95vh;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  overflow-y: auto;
+}
+
+/* El resto de tus estilos se mantienen igual pero adaptados */
+#div-container {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+#row-container {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  max-height: none;
+  overflow-y: visible;
+}
+
+#div-col-12 {
+  width: 100%;
+  padding: 0;
+}
+
+.div-form-encuesta {
+  margin: 0;
+  padding: 0;
+  box-shadow: none;
+  border: none;
+  width: 100%;
+}
+
+.fieldset-encuesta {
+  width: 100%;
+  border: none;
+  padding: 0;
+  
+  strong {
+    font-size: 1.8rem;
+    color: #1e1e2f;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+}
+
+#p-encuesta {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: #1e1e2f;
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+/* Estilos para las filas de inputs */
+.row-inputs-encuesta {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.form-group {
+  margin-bottom: 0.75rem;
+}
+
+.form-label {
+  font-weight: 600;
+  color: #1e1e2f;
+  margin-bottom: 0.25rem;
+  font-size: 0.9rem;
+  display: block;
+}
+
+.form-control {
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
+  
+  &::placeholder {
+    color: #6c757d;
+    opacity: 0.7;
+  }
+  
+  &:focus {
+    border-color: #1e1e2f;
+    box-shadow: 0 0 0 0.2rem rgba(30, 30, 47, 0.25);
+    outline: none;
+  }
+  
+  &.is-invalid {
+    border-color: #dc3545;
+    
+    &:focus {
+      box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+    }
+  }
+}
+
+/* Radio buttons y checkboxes */
+.form-check {
+  margin-bottom: 0.25rem;
+  display: flex;
+  align-items: center;
+  
+  .form-check-input {
+    margin-right: 0.5rem;
+    transform: scale(0.9);
+    
+    &:checked {
+      background-color: #1e1e2f;
+      border-color: #1e1e2f;
+    }
+    
+    &:focus {
+      box-shadow: 0 0 0 0.2rem rgba(30, 30, 47, 0.25);
+    }
+  }
+  
+  .form-check-label {
+    color: #1e1e2f;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-bottom: 0;
+  }
+}
+
+/* Grupos de opciones */
+.d-flex.justify-content-around.flex-wrap {
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+  
+  .form-check {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+}
+
+/* Textarea con restricciones */
+textarea.form-control {
+  resize: none;
+  min-height: 80px;
+  max-height: 120px;
+  font-size: 0.9rem;
+  overflow-y: auto;
+  font-family: inherit;
+  
+  &::placeholder {
+    color: #6c757d;
+    opacity: 0.7;
+  }
+  
+  &:focus {
+    border-color: #1e1e2f;
+    box-shadow: 0 0 0 0.2rem rgba(30, 30, 47, 0.25);
+  }
+}
+
+/* Contador de caracteres */
+.contador-caracteres {
+  font-size: 0.8rem;
+  text-align: right;
+  margin-top: 0.25rem;
+  color: #6c757d;
+  
+  &.alerta {
+    color: #dc3545;
+    font-weight: 600;
+  }
+}
+
+/* Botón de enviar */
+.btn-aceptar-encuesta {
+  background-color: #1e1e2f;
+  border: none;
+  color: white;
+  padding: 0.6rem 1.5rem;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  
+  &:hover:not(:disabled) {
+    transform: scale(1.05);
+    background-color: #1e1e2f;
+    box-shadow: 0 4px 15px #252536;
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    background-color: #6c757d;
+  }
+}
+
+.btn-volver-home {
+  background-color: #1e1e2f;
+  border: none ;
+  color: white;
+  padding: 0.6rem 1.5rem;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  cursor: pointer;
+  
+  &:hover {
+    transform: scale(1.05);
+    background-color: #252536;
+    box-shadow: 0 4px 15px #252536;
+  }
+}
+
+/* Mensajes de error */
+.invalid-feedback {
+  font-size: 0.8rem;
+  margin-top: 0.1rem;
+  color: #dc3545;
+  display: block;
+}
+
+.text-danger {
+  font-size: 0.8rem;
+  color: #dc3545;
+}
+
+/* Ocultar mensajes de error cuando no hay error */
+.invalid-feedback:empty,
+.text-danger:empty {
+  display: none;
+}
+
+
+legend.text-center {
+  margin-bottom: 0.5rem;
+  width: 100%;
+  
+  strong {
+    background:  #1e1e2f;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 1.8rem;
+  }
+}
+
+@-webkit-keyframes kenburns-bottom {
+  0% { -webkit-transform: scale(1) translateY(0); transform: scale(1) translateY(0); -webkit-transform-origin: 50% 84%; transform-origin: 50% 84%; }
+  100% { -webkit-transform: scale(1.25) translateY(15px); transform: scale(1.25) translateY(15px); -webkit-transform-origin: middle; transform-origin: middle; }
+}
+@keyframes kenburns-bottom {
+  0% { -webkit-transform: scale(1) translateY(0); transform: scale(1) translateY(0); -webkit-transform-origin: 50% 84%; transform-origin: 50% 84%; }
+  100% { -webkit-transform: scale(1.25) translateY(15px); transform: scale(1.25) translateY(15px); -webkit-transform-origin: middle; transform-origin: middle; }
+}
+
+.fondo {
+  -webkit-animation: kenburns-bottom 20s ease-out infinite both;
+  animation: kenburns-bottom 20s ease-out infinite both;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  object-fit: cover;
+}

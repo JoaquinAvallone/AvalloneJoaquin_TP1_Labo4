@@ -1,0 +1,199 @@
+/* ranking.scss */
+:host {
+  display: block;
+  height: 100%;
+}
+
+.container-ranking {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.ranking-content {
+  width: 100%;
+  max-width: 800px;
+  max-height: 95vh;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  overflow-y: auto;
+}
+
+/* Header */
+.ranking-header {
+  .titulo-principal {
+    font-size: 2.2rem;
+    color: #1e1e2f;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitulo {
+    color: #6c757d;
+    font-size: 1.1rem;
+  }
+}
+
+/* Top 3 General */
+.top-general {
+  .seccion-titulo {
+    color: #1e1e2f;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  .top-card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+    }
+
+    &.top-1 {
+      background: linear-gradient(135deg, #ffd700, #ffed4e);
+    }
+
+    &.top-2 {
+      background: linear-gradient(135deg, #c0c0c0, #e8e8e8);
+    }
+
+    &.top-3 {
+      background: linear-gradient(135deg, #cd7f32, #e6a65c);
+    }
+  }
+
+  .posicion-icono {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .jugador-nombre {
+    font-weight: 600;
+    color: #1e1e2f;
+    margin-bottom: 0.5rem;
+  }
+
+  .puntuacion-total {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1e1e2f;
+  }
+}
+
+.tops-juegos {
+  .juego-ranking {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 2px solid #e9ecef;
+
+    .juego-titulo {
+      color: #1e1e2f;
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+  }
+
+  .lista-puntajes {
+    .puntaje-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1rem;
+      background: white;
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s ease;
+
+      &:hover {
+        transform: translateX(5px);
+      }
+
+      &:nth-child(1) {
+        border-left: 4px solid #ffd700;
+      }
+
+      &:nth-child(2) {
+        border-left: 4px solid #c0c0c0;
+      }
+
+      &:nth-child(3) {
+        border-left: 4px solid #cd7f32;
+      }
+
+      .posicion {
+        font-weight: 600;
+        color: #1e1e2f;
+        min-width: 40px;
+      }
+
+      .jugador-nombre {
+        color: #1e1e2f;
+        font-weight: 500;
+      }
+
+      .puntuacion {
+        font-weight: 600;
+        color: #1e1e2f;
+        min-width: 80px;
+        text-align: right;
+      }
+    }
+  }
+}
+
+.btn-volver-home {
+  background-color: #1e1e2f;
+  border: none ;
+  color: white;
+  padding: 0.6rem 1.5rem;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  cursor: pointer;
+  
+  &:hover {
+    transform: scale(1.05);
+    background-color: #252536;
+    box-shadow: 0 4px 15px #252536;
+  }
+}
+
+/* Loading */
+.loading-container {
+  .loading-text {
+    color: #6c757d;
+    font-weight: 500;
+  }
+}
+
+@-webkit-keyframes kenburns-bottom {
+  0% { -webkit-transform: scale(1) translateY(0); transform: scale(1) translateY(0); -webkit-transform-origin: 50% 84%; transform-origin: 50% 84%; }
+  100% { -webkit-transform: scale(1.25) translateY(15px); transform: scale(1.25) translateY(15px); -webkit-transform-origin: middle; transform-origin: middle; }
+}
+@keyframes kenburns-bottom {
+  0% { -webkit-transform: scale(1) translateY(0); transform: scale(1) translateY(0); -webkit-transform-origin: 50% 84%; transform-origin: 50% 84%; }
+  100% { -webkit-transform: scale(1.25) translateY(15px); transform: scale(1.25) translateY(15px); -webkit-transform-origin: middle; transform-origin: middle; }
+}
+
+.fondo {
+  -webkit-animation: kenburns-bottom 20s ease-out infinite both;
+  animation: kenburns-bottom 20s ease-out infinite both;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  object-fit: cover;
+}

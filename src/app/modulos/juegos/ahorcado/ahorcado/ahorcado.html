@@ -1,0 +1,57 @@
+<div class="container ahorcado-container full-height">
+    <img src="ahorcado/fondo2.png" class="fondo-ahorcado">
+    <section class="game">
+        <div class="content">
+
+            <div class="close-button text-end mb-3">
+                <button class="btn btn-outline-danger btn-sm border-2 content-2" (click)="volverAlHome()" [disabled]="loading">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+
+            <div class="image text-center mb-4">
+                <img src="ahorcado/{{imageCounter}}.png" alt="Estado del ahorcado - Intento {{imageCounter}} de 7" class="img-fluid">
+            </div>
+
+            <div class="word mb-4">
+                @for(letter of word; track $index) {
+                    @if(keysPressed.includes(letter)) {
+                        <span class="letter">{{ letter }}</span>
+                    } @else {
+                        <span class="letter empty">_</span>
+                    } 
+                }
+            </div>
+
+            <div class="keyboard">
+                @for(row of keyboard; track $index) {
+                    <div class="keyboard-row">
+                        @for(key of row; track $index) {
+                            <button class="keyboard-button btn" 
+                            (click)="handleKeyPress(key)"
+                            [disabled]="keysPressed.includes(key) || gameOver"
+                            [class.btn-secondary]="keysPressed.includes(key)"
+                            [class.btn-primary]="!keysPressed.includes(key)"
+                            > {{ key }} </button>
+                        }
+                    </div>
+                }
+            </div>
+            
+            <div class="gameOver text-center mt-4">
+                @if (gameOver) {
+                    <div class="message mb-3">
+                        <h4 [class.text-success]="imageCounter === 8" [class.text-danger]="imageCounter === 7" [innerHTML]= "message">
+                           
+                        </h4>
+                    </div>
+                    <div class="reset-button">
+                        <button class="btn btn-success" (click)="resetGame()" [disabled]="loading">
+                            <i class="bi bi-arrow-repeat"></i> Jugar de nuevo
+                        </button>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+</div>

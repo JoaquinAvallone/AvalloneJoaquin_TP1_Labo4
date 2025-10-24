@@ -1,0 +1,91 @@
+<div class="chat-container position-fixed end-0 mb-3 me-3" style="z-index: 1050; bottom: 80px;" *ngIf="showChatButton">
+    <!-- Botón toggle del chat -->
+    <button 
+        class="btn btn-primary rounded-circle chat-toggle-btn position-relative"
+        (click)="isLoggedIn ? toggleChat() : showLockedMessage()"
+        type="button"
+        [title]="isLoggedIn ? 'Abrir chat' : 'Inicia sesión para chatear'">
+        <i class="bi bi-chat-dots"></i>
+        @if (isLoggedIn && messages.length > 0) {
+            <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
+                <span class="visually-hidden">Nuevos mensajes</span>
+            </span>
+        }
+    </button>
+
+    <!-- Sidebar del chat -->
+    <div class="chat-sidebar bg-light rounded shadow-lg" [class.show]="isChatOpen">
+        <!-- Header -->
+        <div class="chat-header bg-primary text-white rounded-top p-3 d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">
+                <i class="bi bi-chat-dots me-2"></i>Chat - Sala de Juegos
+            </h5>
+            <button class="btn btn-sm btn-light" (click)="toggleChat()">
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div>
+
+        <!-- Mensajes -->
+        <div class="messages-container p-3 bg-white flex-grow-1" style="max-height: 400px; overflow-y: auto;">
+            @for (message of messages; track message.id) {
+                <div class="message mb-3" 
+                     [class.my-message]="isMyMessage(message)" 
+                     [class.other-message]="!isMyMessage(message)">
+                    
+                    @if (!isMyMessage(message)) {
+                        <div class="message-header mb-1">
+                            <small class="text-muted fw-bold">{{ message.username }}</small>
+                        </div>
+                    }
+                    
+                    <div class="message-content p-2 rounded">
+                        <div class="message-text">{{ message.message }}</div>
+                        <div class="message-time text-end">
+                            <small class="text-muted">{{ formatTime(message.created_at) }}</small>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <!-- Input para enviar mensajes -->
+        <div class="message-input p-3 border-top">
+            <div class="input-group">
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    placeholder="Escribe un mensaje..." 
+                    [(ngModel)]="newMessage"
+                    (keydown)="onKeyPress($event)"
+                    [disabled]="!isLoggedIn"
+                    maxlength="255">
+                <button 
+                    class="btn btn-primary" 
+                    type="button" 
+                    (click)="sendMessage()"
+                    [disabled]="!newMessage.trim() || !isLoggedIn || newMessage.length > 255">
+                    <i class="bi bi-send"></i>
+                </button>
+            </div>
+            
+            <!-- Contador de caracteres -->
+            <div class="d-flex justify-content-between align-items-center mt-1">
+                @if (!isLoggedIn) {
+                    <small class="text-muted">
+                        <i class="bi bi-info-circle me-1"></i>Inicia sesión para chatear
+                    </small>
+                } @else {
+                    <small class="text-muted">
+                        {{ newMessage.length }}/255 caracteres
+                    </small>
+                }
+                
+                @if (newMessage.length > 255) {
+                    <small class="text-danger">
+                        <i class="bi bi-exclamation-triangle me-1"></i>Mensaje demasiado largo
+                    </small>
+                }
+            </div>
+        </div>
+    </div>
+</div>

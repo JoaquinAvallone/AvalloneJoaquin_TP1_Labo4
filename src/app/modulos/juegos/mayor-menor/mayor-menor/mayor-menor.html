@@ -1,0 +1,130 @@
+<div class="container mayor-menor-container full-height">
+    <img src="mayor-menor/fondo6.png" class="fondo-mayor-menor">
+
+    <section class="game">
+        <div class="content">
+            
+            <div class="game-header">
+                <div class="title-container">
+                    <h1 class="titulo">Mayor o Menor</h1>
+                </div>
+                <div class="close-button">
+                    <button class="btn btn-outline-danger btn-sm border-2 content-2" (click)="volverAlHome()">
+                        <i class="bi bi-x"></i>
+                    </button>
+                </div>
+            </div>
+
+            @if (apiError) {
+                <div class="error-message text-center">
+                    <div class="alert alert-danger">
+                        <i class="bi bi-exclamation-triangle"></i>
+                        <h5>Servicio no disponible</h5>
+                        <p>El juego de cartas no está disponible en este momento.</p>
+                        <button class="btn btn-primary mt-2" (click)="resetGame()">
+                            <i class="bi bi-arrow-repeat"></i> Reintentar
+                        </button>
+                    </div>
+                </div>
+            }
+            @else if (loading && !currentCard.cards) {
+                <div class="loading text-center">
+                    <div class="loading-spinner">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Cargando...</span>
+                        </div>
+                    </div>
+                    <p class="loading-text">Preparando el juego...</p>
+                </div>
+            }
+            @else {
+                <div class="game-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="bi bi-trophy"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-label">Puntaje</span>
+                            <span class="stat-value">{{ score }}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="bi bi-heart-fill"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-label">Vidas</span>
+                            <span class="stat-value">{{ life }}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="bi bi-card-checklist"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-label">Restantes</span>
+                            <span class="stat-value">{{ currentCard.remaining || 0 }}</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="game-area">
+                    <div class="cards-container">
+                        <div class="card-column">
+                            <div class="card-slot current-card">
+                                <div class="card-frame">
+                                    <img [src]="currentCard.cards?.[0]?.image" 
+                                         alt="Carta actual" 
+                                         class="card-img"
+                                         [class.card-error]="showErrorEffect">
+                                </div>
+                            </div>
+                            <button class="btn btn-prediction btn-lower" 
+                                    (click)="lower()" 
+                                    [disabled]="life <= 0 || currentCard.remaining === 0 || loading">
+                                <i class="bi bi-arrow-down"></i>
+                                <span>Menor</span>
+                            </button>
+                        </div>
+                        
+                        <div class="card-column">
+                            <div class="card-slot next-card">
+                                <div class="card-frame">
+                                    <img src="https://www.deckofcardsapi.com/static/img/back.png" 
+                                         alt="Próxima carta" 
+                                         class="card-img">
+                                </div>
+                            </div>
+                            <button class="btn btn-prediction btn-higher" 
+                                    (click)="higher()" 
+                                    [disabled]="life <= 0 || currentCard.remaining === 0 || loading">
+                                <i class="bi bi-arrow-up"></i>
+                                <span>Mayor</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="game-message">
+                    <div class="message-text" 
+                         [class.text-success]="message.includes('CORRECTO') || message.includes('VICTORIA') || message.includes('Completaste')"
+                         [class.text-danger]="message.includes('INCORRECTO') || message.includes('TERMINADO') || message.includes('perdido')"
+                         [innerHTML]="message">
+                    </div>
+                </div>
+
+                @if (life <= 0 || currentCard.remaining === 0) {
+                    <div class="game-over text-center mt-4">
+                        <div class="reset-button">
+                            <button class="btn btn-success" (click)="resetGame()" [disabled]="loading">
+                                <i class="bi bi-arrow-repeat"></i> Jugar de nuevo
+                            </button>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </section>
+</div>

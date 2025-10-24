@@ -1,0 +1,108 @@
+<!-- AGREGAR SOLO ESTA LÍNEA PARA EL FONDO -->
+<img src="fondo1.png" alt="Fondo animado" class="fondo">
+
+<div class="container home-container full-height">
+  <!-- Header -->
+  <div class="text-center mb-5">
+    <h1 class="display-4 fw-bold">Sala De Juegos</h1>
+  </div>
+
+  <!-- Cards de Juegos -->
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 justify-content-center">
+    <!-- Juego 1: Mayor o Menor -->
+    <div class="col">
+      <div class="card h-100 game-card shadow-sm">
+        <img src="mayor-menor/pngegg.png" class="card-img-top game-card-img" alt="Mayor o Menor">
+        <div class="card-body text-center">
+          <h5 class="card-title fw-bold">Mayor o Menor</h5>
+          <p class="card-text">Adivina si la próxima carta será mayor o menor que la actual.</p>
+        </div>
+        <div class="card-footer bg-transparent border-0">
+          <button class="btn w-100 game-btn" routerLink="/juegos/mayor-menor">
+            Jugar Ahora
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Juego 2: Preguntados -->
+    <div class="col">
+      <div class="card h-100 game-card shadow-sm">
+        <img src="preguntados/preguntados.png" class="card-img-top game-card-img" alt="Preguntados">
+        <div class="card-body text-center">
+          <h5 class="card-title fw-bold">Preguntados</h5>
+          <p class="card-text">Responde preguntas de diferentes categorías y demuestra tu conocimiento.</p>
+        </div>
+        <div class="card-footer bg-transparent border-0">
+          <button class="btn w-100 game-btn" routerLink="/juegos/preguntados">
+            Jugar Ahora
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Juego 3: Ahorcado -->
+    <div class="col">
+      <div class="card h-100 game-card shadow-sm">
+        <img src="ahorcado/7.png" class="card-img-top game-card-img ahorcado-img" alt="Ahorcado">
+        <div class="card-body text-center">
+          <h5 class="card-title fw-bold">Ahorcado</h5>
+          <p class="card-text">Adivina la palabra letra por letra antes de que se complete el ahorcado.</p>
+        </div>
+        <div class="card-footer bg-transparent border-0">
+          <button class="btn w-100 game-btn" routerLink="/juegos/ahorcado">
+            Jugar Ahora
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Juego 4: AimTrainer -->
+    <div class="col">
+      <div class="card h-100 game-card shadow-sm">
+        <img src="aim/aim.png" class="card-img-top game-card-img" alt="AimTrainer">
+        <div class="card-body text-center">
+          <h5 class="card-title fw-bold">AimTrainer</h5>
+          <p class="card-text">Mejora tu puntería y velocidad de reacción en este juego de entrenamiento.</p>
+        </div>
+        <div class="card-footer bg-transparent border-0">
+          <button class="btn w-100 game-btn" routerLink="/juegos/aim-trainer">
+            Jugar Ahora
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección de Encuestas -->
+    <div class="col">
+      <div class="card h-100 game-card shadow-sm">
+        <img src="encuesta.png" class="card-img-top game-card-img section-img" alt="Encuestas">
+        <div class="card-body text-center">
+          <h5 class="card-title fw-bold">Encuestas</h5>
+          <p class="card-text">Comparte tu opinión y ayúdanos a mejorar la experiencia de juego.</p>
+        </div>
+        <div class="card-footer bg-transparent border-0">
+          <button class="btn w-100 game-btn" routerLink="/encuestas">
+            Completar Encuesta
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección de Resultados -->
+    <div class="col">
+      <div class="card h-100 game-card shadow-sm">
+        <img src="Ranking.png" class="card-img-top game-card-img section-img" alt="Ranking">
+        <div class="card-body text-center">
+          <h5 class="card-title fw-bold">Ranking</h5>
+          <p class="card-text">Revisa tus estadísticas y compara tu desempeño con otros jugadores.</p>
+        </div>
+        <div class="card-footer bg-transparent border-0">
+          <button class="btn w-100 game-btn" routerLink="/ranking">
+            Ver Ranking
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

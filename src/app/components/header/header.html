@@ -1,13 +1,50 @@
-
 <nav class="navbar navbar-expand-lg custom-navbar">
     <div class="container-fluid">
         <div class="navbar">
             <i class="custom-favicon" routerLink="home" type="button"></i>
         </div>      
+        
         <div class="nav justify-content-end">
+            <div *ngIf="isLoading" class="nav-link">
+                <div class="spinner-border spinner-border-sm text-light" role="status">
+                    <span class="visually-hidden">Cargando...</span>
+                </div>
+            </div>
+
+            <a class="nav-link" 
+               (click)="toggleUserMenu()" 
+               *ngIf="!isLoading && isLoggedIn">
+               Usuario
+            </a>
+            
+            <a class="nav-link" 
+               routerLink="resultado-encuestas" 
+               routerLinkActive="active-route" 
+               *ngIf="!isLoading && isLoggedIn && isAdmin">
+               Resultados Encuestas
+            </a>
+            
             <a class="nav-link" routerLink="about" routerLinkActive="active-route">Sobre mí</a>
-            <a class="nav-link" routerLink="login" routerLinkActive="active-route">LogIn</a>
-            <a class="nav-link" routerLink="signup" routerLinkActive="active-route">Registrarse</a>
+            
+            <a class="nav-link" routerLink="login" routerLinkActive="active-route" *ngIf="!isLoading && !isLoggedIn">LogIn</a>
+            <a class="nav-link" routerLink="signup" routerLinkActive="active-route" *ngIf="!isLoading && !isLoggedIn">Registrarse</a>
+
+            <a class="nav-link" type="button" (click)="logOut()" *ngIf="!isLoading && isLoggedIn">LogOut</a>
+        </div>
+
+        <div class="user-modal" *ngIf="isUserMenuOpen" (click)="isUserMenuOpen = false">
+            <div class="user-modal-content" (click)="$event.stopPropagation()">
+                <div class="user-modal-header">
+                    <h5>Información del Usuario</h5>
+                    <button class="close-btn" (click)="isUserMenuOpen = false">&times;</button>
+                </div>
+                <div class="user-modal-body">
+                    <p><strong>Email:</strong> {{ userEmail }}</p>
+                    <p *ngIf="isAdmin" class="admin-badge">
+                        <span class="badge bg-warning text-dark">Administrador</span>
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 </nav>

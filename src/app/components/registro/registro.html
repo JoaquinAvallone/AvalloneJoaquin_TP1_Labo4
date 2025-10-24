@@ -1,19 +1,43 @@
 <div class="container d-flex justify-content-center align-items-center full-height">
+  <img src="fondo1.png" alt="img-fluid" class="fondo">
   <div class="card shadow p-4" style="max-width: 400px; width: 100%;">
     <h3 class="text-center mb-4">Registrarse</h3>
-    <form (ngSubmit)="onSignup()">
-      <!-- nombre -->
+    
+    <!-- Mensaje de error -->
+    <div *ngIf="errorMsg" class="alert alert-danger alert-dismissible fade show" role="alert">
+      {{errorText}}
+      <button type="button" class="btn-close" (click)="closeError()"></button>
+    </div>
+
+     <!-- Spinner de carga -->
+    <div class="text-center" *ngIf="loading">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Cargando...</span>
+      </div>
+      <p class="mt-2">Iniciando sesión...</p>
+    </div>
+
+    <!-- Formulario (oculto durante loading) -->
+    <form *ngIf="!loading" [formGroup]="formRegister" (ngSubmit)="onRegister()">
+
+      <!-- Nombre -->
       <div class="mb-3">
         <label for="nombre" class="form-label">Nombre</label>
         <input
           type="text"
           id="nombre"
-          [(ngModel)]="nombre"
-          name="nombre"
+          formControlName="nombre"
           class="form-control"
           placeholder="Ingrese su nombre"
-          required
+          [class.is-invalid]="formRegister.get('nombre')?.invalid && formRegister.get('nombre')?.touched"
         />
+        <!-- Mensajes de validación -->
+        <div *ngIf="formRegister.get('nombre')?.invalid && formRegister.get('nombre')?.touched" class="invalid-feedback">
+          <div *ngIf="formRegister.get('nombre')?.errors?.['required']">El nombre es requerido</div>
+          <div *ngIf="formRegister.get('nombre')?.errors?.['minlength']">
+            Mínimo 3 caracteres
+          </div>
+        </div>
       </div>
 
       <!-- Email -->
@@ -22,12 +46,16 @@
         <input
           type="email"
           id="email"
-          [(ngModel)]="email"
-          name="email"
+          formControlName="email"
           class="form-control"
           placeholder="Ingrese su correo"
-          required
+          [class.is-invalid]="formRegister.get('email')?.invalid && formRegister.get('email')?.touched"
         />
+        <!-- Mensajes de validación -->
+        <div *ngIf="formRegister.get('email')?.invalid && formRegister.get('email')?.touched" class="invalid-feedback">
+          <div *ngIf="formRegister.get('email')?.errors?.['required']">El email es requerido</div>
+          <div *ngIf="formRegister.get('email')?.errors?.['email']">Ingrese un email válido</div>
+        </div>
       </div>
 
       <!-- Password -->
@@ -36,19 +64,52 @@
         <input
           type="password"
           id="password"
-          [(ngModel)]="password"
-          name="password"
+          formControlName="password"
           class="form-control"
           placeholder="Ingrese su contraseña"
-          required
+          [class.is-invalid]="formRegister.get('password')?.invalid && formRegister.get('password')?.touched"
         />
+        <!-- Mensajes de validación -->
+        <div *ngIf="formRegister.get('password')?.invalid && formRegister.get('password')?.touched" class="invalid-feedback">
+          <div *ngIf="formRegister.get('password')?.errors?.['required']">La contraseña es requerida</div>
+          <div *ngIf="formRegister.get('password')?.errors?.['minlength']">
+            Mínimo 6 caracteres
+          </div>
+        </div>
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="mb-3">
+        <label for="confirm" class="form-label">Repetir contraseña</label>
+        <input
+          type="password"
+          id="confirm"
+          formControlName="confirm"
+          class="form-control"
+          placeholder="Repita su contraseña"
+          [class.is-invalid]="formRegister.get('confirm')?.invalid && formRegister.get('confirm')?.touched"
+        />
+        <!-- Mensajes de validación -->
+        <div *ngIf="formRegister.get('confirm')?.invalid && formRegister.get('confirm')?.touched" class="invalid-feedback">
+          <div *ngIf="formRegister.get('confirm')?.errors?.['required']">Debe confirmar la contraseña</div>
+          <div *ngIf="formRegister.get('confirm')?.errors?.['passwordmatch']">
+            Las contraseñas no coinciden
+          </div>
+        </div>
       </div>
 
       <!-- Botón -->
-      <button type="submit" class="btn btn-primary w-100">
-        Crear cuenta
+      <button 
+        type="submit" 
+        class="btn btn-primary w-100"
+        [disabled]="formRegister.invalid">
+        Registrarse
       </button>
+      
+      <div class="text-center mt-3">
+        <span>¿Ya tienes una cuenta?</span>
+        <a routerLink="/login">LogIn</a>
+      </div>
     </form>
   </div>
 </div>
-

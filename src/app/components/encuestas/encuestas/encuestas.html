@@ -1,0 +1,190 @@
+<div class="container-encuestas full-height">
+    <img src="fondo1.png" alt="img-fluid" class="fondo">
+  <div class="encuestas-content">
+    <div id="div-container">
+      <div id="row-container" class="row justify-content-center">
+        <div id="div-col-12" class="col-12">
+          <form [formGroup]="form" (ngSubmit)="EnviarForm()" class="div-form-encuesta">
+            <fieldset class="fieldset-encuesta">
+              <legend class="text-center">
+                <strong>Encuesta</strong>
+              </legend>
+              
+              <p id="p-encuesta" class="text-center">Comparte tu experiencia y ayúdanos a mejorar</p>
+
+              <!-- Datos Personales -->
+              <div class="row row-inputs-encuesta mx-auto mb-4">
+                <div class="col-md-6 mb-3">
+                  <div class="form-group">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input 
+                      type="text" 
+                      class="form-control" 
+                      id="nombre"
+                      formControlName="nombre" 
+                      placeholder="Ingrese su nombre"
+                      [class.is-invalid]="campoEsInvalido('nombre')">
+                    <div class="invalid-feedback" *ngIf="campoEsInvalido('nombre')">
+                      {{ obtenerMensajeError('nombre') }}
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                  <div class="form-group">
+                    <label for="apellido" class="form-label">Apellido</label>
+                    <input 
+                      type="text" 
+                      class="form-control" 
+                      id="apellido"
+                      formControlName="apellido" 
+                      placeholder="Ingrese su apellido"
+                      [class.is-invalid]="campoEsInvalido('apellido')">
+                    <div class="invalid-feedback" *ngIf="campoEsInvalido('apellido')">
+                      {{ obtenerMensajeError('apellido') }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row row-inputs-encuesta mx-auto mb-4">
+                <div class="col-md-6 mb-3">
+                  <div class="form-group">
+                    <label for="edad" class="form-label">Edad</label>
+                    <input 
+                      type="number" 
+                      class="form-control" 
+                      id="edad"
+                      formControlName="edad" 
+                      placeholder="Ingrese su edad"
+                      [class.is-invalid]="campoEsInvalido('edad')">
+                    <div class="invalid-feedback" *ngIf="campoEsInvalido('edad')">
+                      {{ obtenerMensajeError('edad') }}
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                  <div class="form-group">
+                    <label for="telefono" class="form-label">Teléfono</label>
+                    <input 
+                      type="text" 
+                      class="form-control" 
+                      id="telefono"
+                      formControlName="telefono" 
+                      placeholder="Ingrese su teléfono"
+                      [class.is-invalid]="campoEsInvalido('telefono')">
+                    <div class="invalid-feedback" *ngIf="campoEsInvalido('telefono')">
+                      {{ obtenerMensajeError('telefono') }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Experiencia General -->
+              <div class="row row-inputs-encuesta mx-auto mb-4">
+                <div class="col-12">
+                  <label class="form-label d-block text-center mb-3">
+                    ¿Cómo calificarías tu experiencia general?
+                  </label>
+                  <div class="d-flex justify-content-around flex-wrap">
+                    <div class="form-check" *ngFor="let opcion of ['excelente', 'buena', 'regular', 'mala']">
+                      <input 
+                        class="form-check-input" 
+                        type="radio" 
+                        [value]="opcion"
+                        formControlName="rdbExperiencia"
+                        [id]="'exp_' + opcion">
+                      <label class="form-check-label" [for]="'exp_' + opcion">
+                        {{ opcion | titlecase }}
+                      </label>
+                    </div>
+                  </div>
+                  <div class="text-center mt-2">
+                    <small class="text-danger" *ngIf="campoEsInvalido('rdbExperiencia')">
+                      {{ obtenerMensajeError('rdbExperiencia') }}
+                    </small>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Funcionalidades Deseadas -->
+              <div class="row row-inputs-encuesta mx-auto mb-4">
+                <div class="col-12">
+                  <label class="form-label d-block text-center mb-3">
+                    ¿Qué funcionalidades te gustaría ver en futuras actualizaciones?
+                  </label>
+                  <div formArrayName="ckbFuncionalidades" class="d-flex justify-content-around flex-wrap">
+                    <div class="form-check" *ngFor="let opcion of ['Mas juegos', 'Opciones de personalizacion', 'Modos de dificultad', 'Agregar musica']; let i = index">
+                      <input 
+                        class="form-check-input" 
+                        type="checkbox"
+                        [formControlName]="i"
+                        [id]="'func_' + i">
+                      <label class="form-check-label" [for]="'func_' + i">
+                        {{ opcion }}
+                      </label>
+                    </div>
+                  </div>
+                  <div class="text-center mt-2">
+                    <small class="text-danger" *ngIf="campoEsInvalido('ckbFuncionalidades')">
+                      {{ obtenerMensajeError('ckbFuncionalidades') }}
+                    </small>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Comentarios -->
+              <div class="row row-inputs-encuesta mx-auto mb-4">
+                <div class="col-12">
+                  <div class="form-group">
+                    <label for="comentarios" class="form-label">Comentarios adicionales</label>
+                    <textarea 
+                      class="form-control" 
+                      id="comentarios"
+                      formControlName="textComentario" 
+                      placeholder="Comparte tus sugerencias o comentarios..." 
+                      rows="4"
+                      maxlength="500"
+                      [class.is-invalid]="campoEsInvalido('textComentario')"></textarea>
+                    
+                    <!-- Contador de caracteres -->
+                    <div class="contador-caracteres" 
+                         [class.alerta]="textComentario?.value?.length > 450">
+                      {{ textComentario?.value?.length || 0 }}/500 caracteres
+                    </div>
+                    
+                    <div class="invalid-feedback" *ngIf="campoEsInvalido('textComentario')">
+                      {{ obtenerMensajeError('textComentario') }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Botones -->
+              <div class="row justify-content-center">
+                <div class="col-12 text-center">
+                  <button 
+                    type="submit" 
+                    class="btn btn-aceptar-encuesta mb-3"
+                    [disabled]="form.invalid">
+                    Enviar Encuesta
+                  </button>
+                  
+                  <!-- Botón para volver al home -->
+                  <div class="w-100"></div>
+                  <button 
+                    type="button" 
+                    class="btn btn-volver-home"
+                    routerLink="home">
+                    Volver al Home
+                  </button>
+                </div>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

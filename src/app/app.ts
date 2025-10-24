@@ -2,11 +2,12 @@ import { Component, signal } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { Header } from "./components/header/header";
 import { Footer } from './components/footer/footer';
+import { ChatComponent } from './components/chat/chat';
 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterModule, Header, Footer],
+  imports: [RouterModule, Header, Footer, ChatComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })

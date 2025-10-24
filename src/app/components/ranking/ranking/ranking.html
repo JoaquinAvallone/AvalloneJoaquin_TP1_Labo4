@@ -1,0 +1,144 @@
+<div class="container-ranking full-height">
+    <img src="fondo1.png" alt="img-fluid" class="fondo">
+  <div class="ranking-content full-height">
+    
+    <!-- Header -->
+    <div class="ranking-header text-center mb-4">
+      <h1 class="titulo-principal">🏆 Ranking</h1>
+    </div>
+
+    <!-- Loading -->
+    <div *ngIf="cargando" class="loading-container text-center py-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Cargando...</span>
+      </div>
+      <p class="loading-text mt-2">Cargando rankings...</p>
+    </div>
+
+    <!-- Error -->
+    <div *ngIf="errorCarga && !cargando" class="error-container text-center py-5">
+      <div class="alert alert-danger">
+        <h4>Error al cargar rankings</h4>
+        <p>No se pudieron cargar los rankings. Por favor, intenta nuevamente.</p>
+        <button class="btn btn-primary mt-2" (click)="recargarRankings()">
+          Reintentar
+        </button>
+      </div>
+    </div>
+
+    <!-- Contenido principal -->
+    <div *ngIf="!cargando && !errorCarga" class="ranking-main">
+      
+      <!-- Top 3 General -->
+      <div class="top-general mb-5" *ngIf="topGeneral.length > 0">
+        <h2 class="seccion-titulo text-center mb-4">Top 3 General</h2>
+        <div class="row justify-content-center">
+          <div *ngFor="let jugador of topGeneral; let i = index" 
+               class="col-md-4 mb-3">
+            <div class="card top-card" [class]="'top-' + (i + 1)">
+              <div class="card-body text-center">
+                <div class="posicion-icono">{{ obtenerIconoPosicion(i) }}</div>
+                <h5 class="jugador-email">{{ jugador.correo }}</h5>
+                <div class="puntuacion-total">{{ jugador.puntuacion }} pts</div>
+                <small class="text-muted fecha-hora">{{ jugador.fecha_formateada }}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mensaje si no hay datos -->
+      <div *ngIf="topGeneral.length === 0" class="text-center py-4">
+        <p class="text-muted">Aún no hay jugadores en los rankings.</p>
+      </div>
+
+      <!-- Top 5 por Juego -->
+      <div class="tops-juegos" *ngIf="topAhorcado.length > 0 || topMayorMenor.length > 0 || topPreguntados.length > 0 || topAimTrainer.length > 0">
+        
+        <!-- Ahorcado -->
+        <div class="juego-ranking mb-4" *ngIf="topAhorcado.length > 0">
+          <h3 class="juego-titulo">Ahorcado - Top 5</h3>
+          <div class="lista-puntajes">
+            <div *ngFor="let puntaje of topAhorcado; let i = index" 
+                 class="puntaje-item">
+              <div class="posicion">{{ i + 1 }}°</div>
+              <div class="jugador-info">
+                <span class="jugador-email">{{ puntaje.correo }}</span>
+              </div>
+              <div class="puntuacion">{{ puntaje.puntuacion }} pts</div>
+              <div class="fecha-hora">{{ puntaje.fecha_formateada }}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mayor o Menor -->
+        <div class="juego-ranking mb-4" *ngIf="topMayorMenor.length > 0">
+          <h3 class="juego-titulo">Mayor o Menor - Top 5</h3>
+          <div class="lista-puntajes">
+            <div *ngFor="let puntaje of topMayorMenor; let i = index" 
+                 class="puntaje-item">
+              <div class="posicion">{{ i + 1 }}°</div>
+              <div class="jugador-info">
+                <span class="jugador-email">{{ puntaje.correo }}</span>
+              </div>
+              <div class="puntuacion">{{ puntaje.puntuacion }} pts</div>
+              <div class="fecha-hora">{{ puntaje.fecha_formateada }}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Preguntados -->
+        <div class="juego-ranking mb-4" *ngIf="topPreguntados.length > 0">
+          <h3 class="juego-titulo">Preguntados - Top 5</h3>
+          <div class="lista-puntajes">
+            <div *ngFor="let puntaje of topPreguntados; let i = index" 
+                 class="puntaje-item">
+              <div class="posicion">{{ i + 1 }}°</div>
+              <div class="jugador-info">
+                <span class="jugador-email">{{ puntaje.correo }}</span>
+              </div>
+              <div class="puntuacion">{{ puntaje.puntuacion }} pts</div>
+              <div class="fecha-hora">{{ puntaje.fecha_formateada }}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Aim Trainer -->
+        <div class="juego-ranking mb-4" *ngIf="topAimTrainer.length > 0">
+          <h3 class="juego-titulo">Aim Trainer - Top 5</h3>
+          <div class="lista-puntajes">
+            <div *ngFor="let puntaje of topAimTrainer; let i = index" 
+                 class="puntaje-item">
+              <div class="posicion">{{ i + 1 }}°</div>
+              <div class="jugador-info">
+                <span class="jugador-email">{{ puntaje.correo }}</span>
+              </div>
+              <div class="puntuacion">{{ puntaje.puntuacion }} pts</div>
+              <div class="fecha-hora">{{ puntaje.fecha_formateada }}</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Mensaje si no hay juegos con datos -->
+      <div *ngIf="topAhorcado.length === 0 && topMayorMenor.length === 0 && topPreguntados.length === 0 && topAimTrainer.length === 0" 
+           class="text-center py-4">
+        <p class="text-muted">Aún no hay puntajes registrados en ningún juego.</p>
+        <p class="text-muted">¡Sé el primero en jugar!</p>
+      </div>
+
+      <!-- Botón Volver -->
+      <div class="text-center mt-4">
+        <button 
+        type="button" 
+        class="btn btn-volver-home"
+        routerLink="home">
+        Volver al Home
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+</div>

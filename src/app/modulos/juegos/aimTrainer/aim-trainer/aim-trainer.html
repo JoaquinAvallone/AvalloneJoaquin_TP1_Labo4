@@ -1,0 +1,92 @@
+<div class="container aim-trainer-container full-height">
+    <img src="aim/fondo.png" class="fondo-ahorcado">
+    <section class="game">
+        <div class="content">
+
+            <div class="close-button text-end mb-3">
+                <button class="btn btn-outline-danger btn-sm border-2 content-2" 
+                        (click)="juegoIniciado ? terminarJuego() : volverAlHome()">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+
+            <div class="text-center mb-3">
+                <h2>Aim Trainer</h2>
+            </div>
+
+            @if (!juegoIniciado && !juegoTerminado) {
+                <div class="inicio text-center py-3">
+                    <div class="instrucciones mb-3">
+                        <p class="fs-6 mb-1">Haz click en los objetivos antes de que desaparezcan</p>
+                        <p class="text-muted small">Tiempo: 30 segundos • 8 objetivos por ronda</p>
+                    </div>
+                    <div class="play-button">
+                        <button class="btn btn-success btn-lg" (click)="iniciarJuego()">
+                            <i class="bi bi-play-fill"></i> Iniciar Juego
+                        </button>
+                    </div>
+                </div>
+            }
+
+            @if (juegoIniciado) {
+                <div class="juego-activo">
+                    <!-- Contadores de juego -->
+                    <div class="contadores-juego text-center mb-3">
+                        <span class="badge bg-primary fs-6 me-2">Tiempo: {{ tiempoRestante }}s</span>
+                        <span class="badge bg-success fs-6">Puntos: {{ puntuacion }}</span>
+                    </div>
+
+                    <!-- Área de juego -->
+                    <div class="area-objetivos" (click)="enAreaClick($event)">
+                        @for(objetivo of objetivos; track objetivo.id) {
+                            @if(objetivo.visible) {
+                                <div class="objetivo"
+                                     [style.top.%]="objetivo.top"
+                                     [style.left.%]="objetivo.left"
+                                     [style.width.px]="objetivo.size"
+                                     [style.height.px]="objetivo.size"
+                                     (click)="enObjetivoClick(objetivo)">
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            }
+
+            @if (juegoTerminado) {
+                <div class="juego-terminado text-center py-3">
+                    <div class="resultado-final mb-3">
+                        <h4 [class.text-success]="puntuacion >= 20" 
+                            [class.text-warning]="puntuacion >= 10 && puntuacion < 20" 
+                            [class.text-danger]="puntuacion < 10">
+                            @if (puntuacion >= 20) {
+                                ¡Excelente!
+                            } @else if (puntuacion >= 10) {
+                                ¡Buen Trabajo!
+                            } @else {
+                                ¡Sigue Practicando!
+                            }
+                        </h4>
+                    </div>
+                    
+                    <div class="estadisticas-finales mb-3">
+                        <div class="row justify-content-center">
+                            <div class="col-6">
+                                <div class="stat-card">
+                                    <div class="stat-value text-success">{{ objetivosAcertados }}</div>
+                                    <small class="stat-label">Total Acertados</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="reset-button">
+                        <button class="btn btn-success" (click)="reiniciarJuego()">
+                            <i class="bi bi-arrow-repeat"></i> Jugar de Nuevo
+                        </button>
+                    </div>
+                </div>
+            }
+        </div>
+    </section>
+</div>

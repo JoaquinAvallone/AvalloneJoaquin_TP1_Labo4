@@ -1,0 +1,26 @@
+<div class="container full-height">
+  <h1>Resultados de Encuestas</h1>
+
+  <div *ngIf="cargando">
+    <p>Cargando...</p>
+  </div>
+
+  <div *ngIf="!cargando && !hayEncuestas()">
+    <p>No hay encuestas</p>
+  </div>
+
+  <div *ngIf="!cargando && hayEncuestas()">
+    <p>Total: {{ encuestas.length }} encuestas</p>
+    
+    <div *ngFor="let encuesta of encuestas" style="border: 1px solid #ccc; padding: 10px; margin: 10px;">
+      <h3>{{ encuesta.nombre }} {{ encuesta.apellido }}</h3>
+      <p>Edad: {{ encuesta.edad }}</p>
+      <p>Teléfono: {{ encuesta.telefono }}</p>
+      <p>Experiencia: {{ encuesta.experiencia }}</p>
+      <p>Comentarios: {{ encuesta.comentarios || 'Sin comentarios' }}</p>
+      <button (click)="eliminarEncuesta(encuesta.id)">Eliminar</button>
+    </div>
+  </div>
+
+  <button routerLink="/home">Volver al Home</button>
+</div>
