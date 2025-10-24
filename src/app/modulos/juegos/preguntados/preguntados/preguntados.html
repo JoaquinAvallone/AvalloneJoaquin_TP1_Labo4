@@ -9,9 +9,8 @@
                 </button>
             </div>
 
-            <!-- Contadores de progreso -->
             <div class="progreso-container text-center mb-4">
-                <span class="badge bg-primary fs-6 me-2">Pregunta {{ preguntasRespondidas + 1 }}/5</span>
+                <span class="badge bg-primary fs-6 me-2" *ngIf="!juegoTerminado">Pregunta {{ preguntasRespondidas + 1 }}/5</span>
                 <span class="badge bg-success fs-6">Puntuación: {{ puntuacion }}</span>
             </div>
 

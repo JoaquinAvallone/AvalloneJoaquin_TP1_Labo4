@@ -15,7 +15,7 @@ export class PreguntadosComponent implements OnInit {
   preguntaActual: any = null;
   opciones: string[] = [];
   puntuacion: number = 0;
-  preguntasRespondidas: number = 0;
+  preguntasRespondidas: number = -1;
   juegoTerminado: boolean = false;
   cargando: boolean = false;
   respuestaSeleccionada: string | null = null;
@@ -84,7 +84,7 @@ export class PreguntadosComponent implements OnInit {
   }
 
   siguientePregunta() {
-    if (this.preguntasRespondidas >= 4) {
+    if (this.preguntasRespondidas >= 5) {
       this.finalizarJuego();
       return;
     }
