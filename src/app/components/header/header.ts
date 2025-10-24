@@ -65,14 +65,12 @@ export class Header implements OnInit {
   private async loadUserData() {
     try {
       const user = await this.authService.getUser();
-      console.log('User data:', user);
       
       if (user) {
         this.userEmail = user.email || '';
         
         // Verificar si es administrador
         this.isAdmin = await this.authService.esAdministrador(user.id);
-        console.log('Is admin:', this.isAdmin, 'User ID:', user.id);
       }
     } catch (error) {
       console.error('Error loading user data:', error);

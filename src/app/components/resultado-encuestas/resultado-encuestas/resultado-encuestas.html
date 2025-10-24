@@ -1,26 +1,152 @@
-<div class="container full-height">
-  <h1>Resultados de Encuestas</h1>
+<div class="container-results full-height">
+  <img src="fondo1.png" alt="img-fluid" class="fondo">
+  
+  <div class="results-content full-height">
+    <div id="div-container">
+      <div id="row-container" class="row justify-content-center">
+        <div id="div-col-12" class="col-12">
+          <div class="div-form-results">
+            <fieldset class="fieldset-results">
+              <legend class="text-center">
+                <strong>Resultados de Encuestas</strong>
+              </legend>
+              
+              <p id="p-results" class="text-center">Consulta las respuestas y estadísticas de los usuarios</p>
 
-  <div *ngIf="cargando">
-    <p>Cargando...</p>
-  </div>
+              <!-- Loading -->
+              <div *ngIf="cargando" class="text-center py-4">
+                <div class="spinner-border text-primary" role="status">
+                  <span class="visually-hidden">Cargando...</span>
+                </div>
+                <p class="mt-2">Cargando encuestas...</p>
+              </div>
 
-  <div *ngIf="!cargando && !hayEncuestas()">
-    <p>No hay encuestas</p>
-  </div>
+              <!-- Sin encuestas -->
+              <div *ngIf="!cargando && !hayEncuestas()" class="text-center py-4">
+                <div class="alert alert-info">
+                  <i class="bi bi-info-circle me-2"></i>
+                  No hay encuestas registradas aún.
+                </div>
+              </div>
 
-  <div *ngIf="!cargando && hayEncuestas()">
-    <p>Total: {{ encuestas.length }} encuestas</p>
-    
-    <div *ngFor="let encuesta of encuestas" style="border: 1px solid #ccc; padding: 10px; margin: 10px;">
-      <h3>{{ encuesta.nombre }} {{ encuesta.apellido }}</h3>
-      <p>Edad: {{ encuesta.edad }}</p>
-      <p>Teléfono: {{ encuesta.telefono }}</p>
-      <p>Experiencia: {{ encuesta.experiencia }}</p>
-      <p>Comentarios: {{ encuesta.comentarios || 'Sin comentarios' }}</p>
-      <button (click)="eliminarEncuesta(encuesta.id)">Eliminar</button>
+              <!-- Lista de encuestas - UNA DEBAJO DE LA OTRA -->
+              <div *ngIf="!cargando && hayEncuestas()" class="encuestas-list">
+                <div class="text-center mb-4">
+                  <h4>Total: {{ encuestas.length }} encuestas</h4>
+                </div>
+                
+                <!-- Cada encuesta en una fila completa -->
+                <div class="encuesta-item" *ngFor="let encuesta of encuestas">
+                  <div class="card encuesta-card">
+                    <div class="card-header bg-primary text-white">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <h6 class="mb-0">
+                          <i class="bi bi-person-circle me-2"></i>
+                          {{ encuesta.nombre }} {{ encuesta.apellido }}
+                        </h6>
+                        <span class="badge bg-light text-primary">#{{ encuesta.id }}</span>
+                      </div>
+                    </div>
+                    
+                    <div class="card-body">
+                      <div class="row">
+                        <!-- Información personal -->
+                        <div class="col-md-6">
+                          <div class="mb-3">
+                            <div class="row small text-muted">
+                              <div class="col-6">
+                                <i class="bi bi-calendar me-1"></i>
+                                {{ encuesta.edad }} años
+                              </div>
+                              <div class="col-6">
+                                <i class="bi bi-telephone me-1"></i>
+                                {{ encuesta.telefono }}
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- Experiencia -->
+                          <div class="mb-3">
+                            <strong>Experiencia:</strong>
+                            <span class="badge ms-2" 
+                                  [ngClass]="{
+                                    'bg-success': encuesta.experiencia === 'excelente',
+                                    'bg-primary': encuesta.experiencia === 'buena',
+                                    'bg-warning': encuesta.experiencia === 'regular',
+                                    'bg-danger': encuesta.experiencia === 'mala',
+                                    'bg-secondary': !encuesta.experiencia
+                                  }">
+                              {{ encuesta.experiencia || 'No especificada' }}
+                            </span>
+                          </div>
+                        </div>
+
+                        <!-- Funcionalidades deseadas -->
+                        <div class="col-md-6">
+                          <div class="mb-3">
+                            <strong>Funcionalidades deseadas:</strong>
+                            <div *ngIf="encuesta.funcionalidades_deseadas && encuesta.funcionalidades_deseadas.length > 0" class="mt-1">
+                              <span *ngFor="let func of encuesta.funcionalidades_deseadas" 
+                                    class="badge bg-secondary me-1 mb-1">
+                                {{ func }}
+                              </span>
+                            </div>
+                            <div *ngIf="!encuesta.funcionalidades_deseadas || encuesta.funcionalidades_deseadas.length === 0" class="mt-1">
+                              <small class="text-muted">No seleccionó funcionalidades</small>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Comentarios (ocupa toda la fila) -->
+                      <div class="row">
+                        <div class="col-12">
+                          <div class="mb-3" *ngIf="encuesta.comentarios">
+                            <strong>Comentarios:</strong>
+                            <p class="mt-1 mb-0 comentario-texto">{{ encuesta.comentarios }}</p>
+                          </div>
+
+                          <div *ngIf="!encuesta.comentarios" class="text-muted small">
+                            <i>Sin comentarios adicionales</i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="card-footer bg-light">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <small class="text-muted">
+                          <i class="bi bi-clock me-1"></i>
+                          ID: {{ encuesta.id }}
+                        </small>
+                        <button *ngIf="encuesta.id" 
+                                class="btn btn-sm btn-outline-danger"
+                                (click)="eliminarEncuesta(encuesta.id)"
+                                title="Eliminar encuesta">
+                          <i class="bi bi-trash"></i> Eliminar
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Botones -->
+              <div class="row justify-content-center mt-4">
+                <div class="col-12 text-center">
+                  <button 
+                    type="button" 
+                    class="btn btn-volver-home"
+                    routerLink="/home">
+                    <i class="bi bi-arrow-left me-2"></i>
+                    Volver al Home
+                  </button>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-
-  <button routerLink="/home">Volver al Home</button>
 </div>
