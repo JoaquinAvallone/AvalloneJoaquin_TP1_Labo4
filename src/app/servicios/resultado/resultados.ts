@@ -13,7 +13,6 @@ export class ResultadosService {
   }
 
   async GuardarEncuesta(encuestaData: any) {
-    // Filtrar solo las funcionalidades seleccionadas
     const funcionalidadesSeleccionadas = this.obtenerFuncionalidadesSeleccionadas(encuestaData.ckbFuncionalidades);
 
     const { data, error } = await this.supabase
@@ -27,7 +26,6 @@ export class ResultadosService {
           experiencia: encuestaData.rdbExperiencia,
           funcionalidades_deseadas: funcionalidadesSeleccionadas,
           comentarios: encuestaData.textComentario
-          // created_at se llena automáticamente
         }
       ])
       .select();
@@ -44,7 +42,6 @@ export class ResultadosService {
     try {
       console.log('Consultando tabla encuestas...');
       
-      // QUITAR el .order('created_at') porque la columna no existe
       const { data, error } = await this.supabase
         .from('encuestas')
         .select('*');
@@ -80,7 +77,6 @@ export class ResultadosService {
     return { data, total: count || 0 };
   }
 
-  // Obtener estadísticas de las encuestas
   async ObtenerEstadisticasEncuestas() {
     const { data, error } = await this.supabase
       .from('encuestas')
@@ -91,7 +87,6 @@ export class ResultadosService {
       throw error;
     }
 
-    // Calcular estadísticas
     const estadisticas = {
       total: data?.length || 0,
       porExperiencia: this.contarPorExperiencia(data || []),
@@ -102,7 +97,6 @@ export class ResultadosService {
     return estadisticas;
   }
 
-  // Obtener encuestas por rango de fechas
   async ObtenerEncuestasPorFecha(desde: Date, hasta: Date) {
     const { data, error } = await this.supabase
       .from('encuestas')
@@ -119,7 +113,6 @@ export class ResultadosService {
     return data;
   }
 
-  // Métodos auxiliares privados
   private obtenerFuncionalidadesSeleccionadas(ckbFuncionalidades: any[]): string[] {
     const opciones = ['Mas juegos', 'Opciones de personalizacion', 'Modos de dificultad', 'Agregar musica'];
     return ckbFuncionalidades
@@ -179,7 +172,6 @@ export class ResultadosService {
     return conteo;
   }
 
-  // Método para eliminar una encuesta (solo si necesitas administración)
   async EliminarEncuesta(id: number) {
     const { error } = await this.supabase
       .from('encuestas')

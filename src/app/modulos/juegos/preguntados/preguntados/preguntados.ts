@@ -84,7 +84,7 @@ export class PreguntadosComponent implements OnInit {
   }
 
   siguientePregunta() {
-    if (this.preguntasRespondidas >= 5) {
+    if (this.preguntasRespondidas >= 4) {
       this.finalizarJuego();
       return;
     }
@@ -133,9 +133,6 @@ export class PreguntadosComponent implements OnInit {
 
   async finalizarJuego() {
     this.juegoTerminado = true;
-    // NOTA: NO limpiamos preguntaActual para que se mantenga visible la última bandera
-
-    // Guardar puntaje
     try {
       await this.puntajesService.guardarPuntaje('preguntados', this.puntuacion);
     } catch (error) {

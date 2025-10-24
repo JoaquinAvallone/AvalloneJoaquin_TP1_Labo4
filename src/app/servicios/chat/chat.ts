@@ -58,7 +58,6 @@ export class ChatService {
 
   private async subscribeToMessages(): Promise<void> {
     return new Promise((resolve) => {
-      // Cancelar suscripción anterior si existe
       if (this.channel) {
         supabase.removeChannel(this.channel);
         this.channel = null;
@@ -114,7 +113,6 @@ export class ChatService {
   private addMessageToState(newMessage: ChatMessage) {
     const currentMessages = this.messagesSubject.value;
     
-    // Verificar que no sea un duplicado
     const isDuplicate = currentMessages.some(msg => msg.id === newMessage.id);
     if (!isDuplicate) {
       this.messagesSubject.next([...currentMessages, newMessage]);
@@ -144,8 +142,7 @@ export class ChatService {
       console.error('Error enviando mensaje:', error);
       throw error;
     }
-    
-    // Agregar el mensaje localmente inmediatamente
+
     this.addMessageToState(data);
     
     return data;

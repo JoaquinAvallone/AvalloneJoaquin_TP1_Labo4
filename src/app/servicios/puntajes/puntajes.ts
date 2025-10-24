@@ -159,25 +159,22 @@ export class PuntajesService {
       usuario_id: promedios[correo].usuario_id
     }));
     
-    // Ordenar por promedio (descendente) y tomar top 5
+
     return ranking
       .sort((a, b) => b.promedio - a.promedio)
       .slice(0, 5);
   }
 
-  /**
-   * Generar ranking por total de juegos jugados
-   */
+
   async generarRankingTotalJuegos(juego: string): Promise<any[]> {
     const puntajes = await this.obtenerTodosLosPuntajes(juego);
     
-    // Contar juegos por usuario
+
     const conteo = puntajes.reduce((acc: any, puntaje) => {
       acc[puntaje.correo] = (acc[puntaje.correo] || 0) + 1;
       return acc;
     }, {});
     
-    // Convertir a array
     const ranking = Object.keys(conteo).map(correo => ({
       correo,
       total_juegos: conteo[correo]
@@ -189,9 +186,7 @@ export class PuntajesService {
       .slice(0, 5);
   }
 
-  /**
-   * Obtener todos los rankings para un juego específico
-   */
+
   async obtenerTodosLosRankings(juego: string) {
     return {
       mejorPuntuacion: await this.generarRankingMejorPuntuacion(juego),
@@ -200,9 +195,6 @@ export class PuntajesService {
     };
   }
 
-  /**
-   * Obtener rankings para todos los juegos
-   */
   async obtenerRankingsTodosLosJuegos() {
     const resultados: any = {};
     

@@ -34,15 +34,13 @@ export class NotificationService {
     const container = this.getDesktopToastContainer();
     container.insertAdjacentHTML('beforeend', toastHtml);
 
-    // Animación de progreso
     this.startProgressAnimation(toastId, duration);
 
-    // Auto-remover después de la duración
     setTimeout(() => {
       this.removeToast(toastId);
     }, duration);
 
-    // Cerrar manualmente
+
     const closeBtn = document.querySelector(`#${toastId} .btn-close`);
     if (closeBtn) {
       closeBtn.addEventListener('click', () => {
